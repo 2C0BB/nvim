@@ -25,7 +25,7 @@ require("lazy").setup({
 	{'rebelot/kanagawa.nvim', name = 'kanagawa'},
 
 
-	--{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
+	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
 	{"nvim-lualine/lualine.nvim"},
 	{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
 
@@ -34,20 +34,37 @@ require("lazy").setup({
 	{"williamboman/mason-lspconfig.nvim"},
 	{"neovim/nvim-lspconfig"},
 
+    -- Autocomplete
+    --{"https://github.com/hrsh7th/nvim-cmp"},
 })
 
+require("telescope").setup {
+    defaults = {
+        file_ignore_patterns = {
+            ".git",
+            "target",
+        }
+    }
+}
+
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+
 require('lualine').setup {
-    --[[
     options = {
         theme = 'gruvbox',
     },
-    --]]
 }
 
-require'nvim-treesitter.configs'.setup {
+-- recognise slint filetypes
+vim.cmd("autocmd BufEnter *.slint :setlocal filetype=slint")
+
+require('nvim-treesitter.configs').setup {
 	auto_install = true,
 	highlight = {
-		enable = false,
+		enable = true,
 	},
     indent = {
         enable = false,
@@ -80,9 +97,21 @@ lspconfig.pyright.setup {
 lspconfig.rust_analyzer.setup {}
 lspconfig.hls.setup {}
 lspconfig.clangd.setup {}
+lspconfig.slint_lsp.setup {
+    settings = {
+        slint_lsp = {
+            filetypes = {"slint"},
+            command = {"slint-lsp"},
+        }
+    }
+}
+
+-- setup autocomplete
+--local cmp = require("cmp")
 
 -- vim.o.background = "light"
-vim.cmd "colorscheme catppuccin-mocha"
+vim.cmd "colorscheme gruvbox"
+vim.cmd("set wrap!")
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -93,8 +122,12 @@ vim.wo.relativenumber = true
 -- since i am using lualine, i don't want the extra status line
 --vim.opt.showmode = false
 
+-- CUSTOM COMMANDS
+vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\\init.lua", {})
+
 -- KEYBINDINGS
 vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>", {})
 
 -- exit terminal typing mode with escape
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
