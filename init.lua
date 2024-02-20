@@ -24,6 +24,7 @@ require("lazy").setup({
 	{'rose-pine/neovim', name = 'rose-pine'},
 	{'rebelot/kanagawa.nvim', name = 'kanagawa'},
 
+    {'HiPhish/rainbow-delimiters.nvim'},
 
 	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
 	{"nvim-lualine/lualine.nvim"},
