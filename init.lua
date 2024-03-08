@@ -14,6 +14,61 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+-- NO ARROW KEYS!
+vim.api.nvim_set_keymap('i', '<Up>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap('i', '<Down>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap('i', '<Left>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap('i', '<Right>', '<NOP>', {noremap = true})
+
+vim.api.nvim_set_keymap('n', '<Up>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Down>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Left>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Right>', '<NOP>', {noremap = true})
+--[[
+
+Matthew 5:30
+
+And if your right hand causes you to sin, cut it off and throw it away.
+For it is better that you lose one of your members than that your whole body go into hell.
+
+--]]
+
+-- vim.o.background = "light"
+vim.cmd("set wrap!")
+vim.cmd("set clipboard=unnamedplus")
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+
+vim.wo.relativenumber = true
+
+-- CUSTOM COMMANDS
+vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\\init.lua", {})
+
+-- KEYBINDINGS
+vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>", {silent = true})
+
+-- exit terminal typing mode with escape
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+
+vim.keymap.set("n", "<leader>b", ":ls<CR>:b<space>", {noremap = true})
+
+
+-- makes background transparent
+-- from: https://www.reddit.com/r/neovim/comments/3v06lo/making_the_background_transparent/
+--vim.cmd("highlight Normal guibg=none")
+--vim.cmd("highlight NonText guibg=none")
+
+-- centers windows on cursor
+-- from: https://stackoverflow.com/questions/64280931/keep-cursor-line-vertically-centered-in-vim
+--vim.cmd("set scrolloff=999")
+
+-- disables comments continuing on newlines.
+-- from https://superuser.com/questions/271023/can-i-disable-continuation-of-comments-to-the-next-line-in-vim
+vim.cmd("autocmd FileType * set formatoptions-=cro")
+
 require("lazy").setup({
 	--{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
 
@@ -49,6 +104,10 @@ require("lazy").setup({
         },
     },
 })
+
+-- COLORSCHEME
+vim.cmd "colorscheme catppuccin"
+
 
 require("telescope").setup {
     defaults = {
@@ -134,13 +193,29 @@ cmp.setup({
         --documentation = false;
 
     },
+
+    view = {
+        docs = {
+            auto_open = false
+        }
+    },
+
     mapping = cmp.mapping.preset.insert({
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
+        --["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         --["<CR>"] = cmp.mapping.open_docs()
+        ['<C-g>'] = function()
+        if cmp.visible_docs() then
+          cmp.close_docs()
+        else
+          cmp.open_docs()
+        end
+      end,
+
+
     }),
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
@@ -162,41 +237,4 @@ cmp.setup.cmdline(":", {
     }),
 })
 
--- vim.o.background = "light"
-vim.cmd "colorscheme catppuccin"
-vim.cmd("set wrap!")
 
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-
-vim.wo.relativenumber = true
-
--- since i am using lualine, i don't want the extra status line
---vim.opt.showmode = false
-
--- CUSTOM COMMANDS
-vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\\init.lua", {})
-
--- KEYBINDINGS
-vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>", {})
-
--- exit terminal typing mode with escape
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
-
-vim.keymap.set("n", "<leader>b", ":ls<CR>:b<space>", {noremap = true})
-
-
--- makes background transparent
--- from: https://www.reddit.com/r/neovim/comments/3v06lo/making_the_background_transparent/
---vim.cmd("highlight Normal guibg=none")
---vim.cmd("highlight NonText guibg=none")
-
--- centers windows on cursor
--- from: https://stackoverflow.com/questions/64280931/keep-cursor-line-vertically-centered-in-vim
---vim.cmd("set scrolloff=999")
-
--- disables comments continuing on newlines.
--- from https://superuser.com/questions/271023/can-i-disable-continuation-of-comments-to-the-next-line-in-vim
-vim.cmd("autocmd FileType * set formatoptions-=cro")
