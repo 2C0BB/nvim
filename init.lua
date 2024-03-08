@@ -34,6 +34,7 @@ For it is better that you lose one of your members than that your whole body go 
 --]]
 
 -- vim.o.background = "light"
+vim.cmd("set shell=powershell")
 vim.cmd("set wrap!")
 vim.cmd("set clipboard=unnamedplus")
 
@@ -49,6 +50,7 @@ vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\
 -- KEYBINDINGS
 vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<leader>e", ":Ve!<CR>", {silent = true})
 
 -- exit terminal typing mode with escape
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
@@ -61,13 +63,11 @@ vim.keymap.set("n", "<leader>b", ":ls<CR>:b<space>", {noremap = true})
 --vim.cmd("highlight Normal guibg=none")
 --vim.cmd("highlight NonText guibg=none")
 
--- centers windows on cursor
--- from: https://stackoverflow.com/questions/64280931/keep-cursor-line-vertically-centered-in-vim
---vim.cmd("set scrolloff=999")
-
 -- disables comments continuing on newlines.
 -- from https://superuser.com/questions/271023/can-i-disable-continuation-of-comments-to-the-next-line-in-vim
 vim.cmd("autocmd FileType * set formatoptions-=cro")
+
+vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 require("lazy").setup({
 	--{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
@@ -80,6 +80,9 @@ require("lazy").setup({
 	{'rebelot/kanagawa.nvim', name = 'kanagawa'},
 
     {'HiPhish/rainbow-delimiters.nvim'},
+
+    -- FUNNY
+    {'eandrju/cellular-automaton.nvim'},
 
 	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
 	{"nvim-lualine/lualine.nvim"},
@@ -125,8 +128,48 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 
 require('lualine').setup {
     options = {
-        theme = 'catppuccin',
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
     },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+
+        --lualine_c = {'filename'},
+        --lualine_x = {'location'},
+        lualine_c = {'filename'},
+        lualine_x = {'location'},
+
+        lualine_y = {},
+        lualine_z = {}
+    },
+
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
 }
 
 -- recognise slint filetypes
