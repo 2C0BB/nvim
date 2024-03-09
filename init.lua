@@ -34,9 +34,10 @@ For it is better that you lose one of your members than that your whole body go 
 --]]
 
 -- vim.o.background = "light"
-vim.cmd("set shell=powershell")
+vim.cmd("set shell=nu")
 vim.cmd("set wrap!")
 vim.cmd("set clipboard=unnamedplus")
+vim.cmd("set hidden")
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -48,6 +49,11 @@ vim.wo.relativenumber = true
 vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\\init.lua", {})
 
 -- KEYBINDINGS
+
+vim.api.nvim_set_keymap("n", "<C-l>", ":bnext<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-h>", ":bprevious<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-d>", ":bdelete<CR>", {})
+
 vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ve!<CR>", {silent = true})
@@ -55,7 +61,6 @@ vim.api.nvim_set_keymap("n", "<leader>e", ":Ve!<CR>", {silent = true})
 -- exit terminal typing mode with escape
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
 
-vim.keymap.set("n", "<leader>b", ":ls<CR>:b<space>", {noremap = true})
 
 
 -- makes background transparent
@@ -130,8 +135,10 @@ require('lualine').setup {
     options = {
         icons_enabled = true,
         theme = 'auto',
+
         component_separators = { left = '', right = ''},
         section_separators = { left = '', right = ''},
+
         disabled_filetypes = {
             statusline = {},
             winbar = {},
@@ -149,6 +156,7 @@ require('lualine').setup {
         lualine_a = {'mode'},
         lualine_b = {'branch', 'diff', 'diagnostics'},
         lualine_c = {'filename'},
+
         lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_y = {'progress'},
         lualine_z = {'location'}
@@ -156,18 +164,21 @@ require('lualine').setup {
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-
-        --lualine_c = {'filename'},
-        --lualine_x = {'location'},
         lualine_c = {'filename'},
-        lualine_x = {'location'},
 
+        lualine_x = {'location'},
         lualine_y = {},
         lualine_z = {}
     },
 
-    tabline = {},
-    winbar = {},
+    tabline = {
+        lualine_a = {'buffers'},
+
+        lualine_z = {'tabs'},
+
+    },
+    winbar = {
+    },
     inactive_winbar = {},
     extensions = {}
 }
