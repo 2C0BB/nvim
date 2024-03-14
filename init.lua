@@ -15,15 +15,15 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
 -- NO ARROW KEYS!
-vim.api.nvim_set_keymap('i', '<Up>', '<NOP>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<Down>', '<NOP>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<Left>', '<NOP>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<Right>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap("i", "<Up>", "<NOP>", {noremap = true})
+vim.api.nvim_set_keymap("i", "<Down>", "<NOP>", {noremap = true})
+vim.api.nvim_set_keymap("i", "<Left>", "<NOP>", {noremap = true})
+vim.api.nvim_set_keymap("i", "<Right>", "<NOP>", {noremap = true})
 
-vim.api.nvim_set_keymap('n', '<Up>', '<NOP>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Down>', '<NOP>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Left>', '<NOP>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Right>', '<NOP>', {noremap = true})
+vim.api.nvim_set_keymap("n", "<Up>", "<NOP>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<Down>", "<NOP>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<Left>", "<NOP>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<Right>", "<NOP>", {noremap = true})
 --[[
 
 Matthew 5:30
@@ -34,7 +34,14 @@ For it is better that you lose one of your members than that your whole body go 
 --]]
 
 -- vim.o.background = "light"
+
+--https://github.com/neovim/neovim/issues/19648
 vim.cmd("set shell=nu")
+vim.cmd("set shellcmdflag=-c")
+vim.cmd("set shellquote")
+vim.cmd("set shellxquote")
+
+
 vim.cmd("set wrap!")
 vim.cmd("set clipboard=unnamedplus")
 vim.cmd("set hidden")
@@ -50,8 +57,8 @@ vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\
 
 -- KEYBINDINGS
 
-vim.api.nvim_set_keymap("n", "<C-l>", ":bnext<CR>", {})
-vim.api.nvim_set_keymap("n", "<C-h>", ":bprevious<CR>", {})
+vim.api.nvim_set_keymap("n", "<tab>", ":bnext<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<s-tab>", ":bprevious<CR>", {silent = true})
 vim.api.nvim_set_keymap("n", "<C-d>", ":bdelete<CR>", {})
 
 vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {silent = true})
@@ -59,7 +66,7 @@ vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>",
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ve!<CR>", {silent = true})
 
 -- exit terminal typing mode with escape
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
 
 
@@ -75,23 +82,22 @@ vim.cmd("autocmd FileType * set formatoptions-=cro")
 vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 require("lazy").setup({
-	--{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
-
 	-- THEMES
-	{'morhetz/gruvbox'},
+	{"morhetz/gruvbox", lazy = false, priority = 1000},
 	{"folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {}, },
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{'rose-pine/neovim', name = 'rose-pine'},
-	{'rebelot/kanagawa.nvim', name = 'kanagawa'},
+	{"catppuccin/nvim", name = "catppuccin", lazy=false, priority = 1000 },
+	{"rose-pine/neovim", name = "rose-pine"},
+	{"rebelot/kanagawa.nvim", name = "kanagawa"},
 
-    {'HiPhish/rainbow-delimiters.nvim'},
+    {"HiPhish/rainbow-delimiters.nvim"},
 
     -- FUNNY
-    {'eandrju/cellular-automaton.nvim'},
+    {"eandrju/cellular-automaton.nvim"},
+
 
 	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
-	{"nvim-lualine/lualine.nvim"},
-	{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+	{"nvim-lualine/lualine.nvim", dependencies = {"nvim-tree/nvim-web-devicons"}},
+	{"nvim-treesitter/nvim-treesitter", dependencies = {{"nushell/tree-sitter-nu"}}, build = ":TSUpdate"},
 
 	-- LSP
 	{"williamboman/mason.nvim"},
@@ -116,7 +122,6 @@ require("lazy").setup({
 -- COLORSCHEME
 vim.cmd "colorscheme catppuccin"
 
-
 require("telescope").setup {
     defaults = {
         file_ignore_patterns = {
@@ -130,14 +135,15 @@ local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+vim.keymap.set("n", "<leader>fe", builtin.diagnostics, {})
 
-require('lualine').setup {
+require("lualine").setup {
     options = {
         icons_enabled = true,
-        theme = 'auto',
+        theme = "auto",
 
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = { left = "", right = ""},
+        section_separators = { left = "", right = ""},
 
         disabled_filetypes = {
             statusline = {},
@@ -153,28 +159,28 @@ require('lualine').setup {
         }
     },
     sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
+        lualine_a = {"mode"},
+        lualine_b = {"branch", "diff", "diagnostics"},
+        lualine_c = {"filename"},
 
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_x = {"encoding", "fileformat", "filetype"},
+        lualine_y = {"progress"},
+        lualine_z = {"location"}
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
+        lualine_c = {"filename"},
 
-        lualine_x = {'location'},
+        lualine_x = {"location"},
         lualine_y = {},
         lualine_z = {}
     },
 
     tabline = {
-        lualine_a = {'buffers'},
+        lualine_a = {"buffers"},
 
-        lualine_z = {'tabs'},
+        lualine_z = {"tabs"},
 
     },
     winbar = {
@@ -186,7 +192,7 @@ require('lualine').setup {
 -- recognise slint filetypes
 vim.cmd("autocmd BufEnter *.slint :setlocal filetype=slint")
 
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup {
 	auto_install = true,
 	highlight = {
 		enable = true,
@@ -203,23 +209,31 @@ require("mason-lspconfig").setup()
 --[[
 FOR AUTO ENABLING SERVERS
 
-require('mason-lspconfig').setup_handlers({
+require("mason-lspconfig").setup_handlers({
   function(server)
     lspconfig[server].setup({})
   end,
 })
 --]]
 
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 lspconfig.pyright.setup {
 	settings = {
 		pyright = {
-			typeCheckingMode = 'off'
+			typeCheckingMode = "off"
 		}
 	}
 }
 
-lspconfig.rust_analyzer.setup {}
+lspconfig.rust_analyzer.setup {
+    settings = {
+        ["rust-analyzer"] = {
+            diagnostics = {
+                disabled = {"needless_return"}
+            }
+        }
+    }
+}
 lspconfig.hls.setup {}
 lspconfig.clangd.setup {}
 lspconfig.slint_lsp.setup {
@@ -261,7 +275,7 @@ cmp.setup({
         --["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         --["<CR>"] = cmp.mapping.open_docs()
-        ['<C-g>'] = function()
+        ["<C-g>"] = function()
         if cmp.visible_docs() then
           cmp.close_docs()
         else
