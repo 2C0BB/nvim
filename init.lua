@@ -26,3 +26,5 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     {import = "2C0BB/plugins"}
 })
+
+--vim.cmd("intro")
