@@ -23,6 +23,7 @@ return {
 	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
     {"tpope/vim-fugitive"},
 	{"nvim-treesitter/nvim-treesitter", dependencies = {{"nushell/tree-sitter-nu"}}, build = ":TSUpdate"},
+    {"m4xshen/hardtime.nvim", dependencies = {"MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim"}},
 
 	-- LSP
 	{"williamboman/mason.nvim"},
