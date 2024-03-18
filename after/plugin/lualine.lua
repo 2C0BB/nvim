@@ -1,7 +1,7 @@
 require("lualine").setup {
     options = {
         icons_enabled = true,
-        theme = "auto",
+        theme = "gruvbox-material",
 
         component_separators = { left = "", right = ""},
         section_separators = { left = "", right = ""},
@@ -49,4 +49,3 @@ require("lualine").setup {
     inactive_winbar = {},
     extensions = {}
 }
-

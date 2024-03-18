@@ -40,4 +40,3 @@ lspconfig.slint_lsp.setup {
         }
     }
 }
-
