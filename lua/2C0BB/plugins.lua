@@ -1,10 +1,12 @@
 return {
 	-- THEMES
+    {"sainnhe/gruvbox-material", name = "gruvbox-material", lazy = false, priority = 1000},
 	--{"morhetz/gruvbox", lazy = false, priority = 1000},
 	--{"folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {}, },
 	--{"rose-pine/neovim", name = "rose-pine"},
 	--{"rebelot/kanagawa.nvim", name = "kanagawa"},
-	{"catppuccin/nvim", name = "catppuccin", lazy=false, priority = 1000},
+	--{"catppuccin/nvim", name = "catppuccin", lazy=false, priority = 1000},
+
     {"HiPhish/rainbow-delimiters.nvim"},
 
     -- FUNNY
@@ -15,8 +17,11 @@ return {
     },
 
 
-	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
 	{"nvim-lualine/lualine.nvim", dependencies = {"nvim-tree/nvim-web-devicons"}},
+    --{"arkav/lualine-lsp-progress"},
+
+	{"nvim-telescope/telescope.nvim", tag = "0.1.5", dependencies = { "nvim-lua/plenary.nvim" }},
+    {"tpope/vim-fugitive"},
 	{"nvim-treesitter/nvim-treesitter", dependencies = {{"nushell/tree-sitter-nu"}}, build = ":TSUpdate"},
 
 	-- LSP

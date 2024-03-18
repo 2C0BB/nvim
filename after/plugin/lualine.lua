@@ -1,10 +1,18 @@
+lsp_name = "no lsp"
+
+function get_lsp_name()
+    return lsp_name
+end
+
 require("lualine").setup {
     options = {
         icons_enabled = true,
         theme = "auto",
 
-        component_separators = { left = "", right = ""},
-        section_separators = { left = "", right = ""},
+        --component_separators = { left = "", right = ""},
+        --section_separators = { left = "", right = ""},
+        component_separators = { left = "|", right = "|"},
+        section_separators = { left = "", right = ""},
 
         disabled_filetypes = {
             statusline = {},
@@ -24,7 +32,8 @@ require("lualine").setup {
         lualine_b = {"branch", "diff", "diagnostics"},
         lualine_c = {"filename"},
 
-        lualine_x = {"encoding", "fileformat", "filetype"},
+        --lualine_x = {"encoding", "fileformat", "filetype"},
+        lualine_x = {get_lsp_name, "filetype"},
         lualine_y = {"progress"},
         lualine_z = {"location"}
     },
@@ -39,9 +48,9 @@ require("lualine").setup {
     },
 
     tabline = {
-        lualine_a = {"buffers"},
+        lualine_a = {"tabs"},
 
-        lualine_z = {"tabs"},
+        --lualine_z = {"tabs"},
 
     },
     winbar = {

@@ -20,9 +20,9 @@ For it is better that you lose one of your members than that your whole body go 
 
 --]]
 
-vim.api.nvim_set_keymap("n", "<tab>", ":bnext<CR>", {silent = true})
-vim.api.nvim_set_keymap("n", "<s-tab>", ":bprevious<CR>", {silent = true})
-vim.api.nvim_set_keymap("n", "<C-d>", ":bdelete<CR>", {})
+vim.api.nvim_set_keymap("n", "<tab>", "<C-^>", {silent = true})
+--vim.api.nvim_set_keymap("n", "<s-tab>", ":bprevious<CR>", {silent = true})
+--vim.api.nvim_set_keymap("n", "<C-d>", ":bdelete<CR>", {})
 
 vim.api.nvim_set_keymap("n", "<leader>i", ":lua vim.diagnostic.open_float()<CR>", {silent = true})
 vim.api.nvim_set_keymap("n", "<leader>n", ":lua vim.diagnostic.goto_next()<CR>", {silent = true})
