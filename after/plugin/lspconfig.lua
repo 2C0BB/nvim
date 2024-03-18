@@ -1,4 +1,3 @@
-local lspconfig = require("lspconfig")
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -30,6 +29,7 @@ lspconfig.rust_analyzer.setup {
         }
     }
 }
+lspconfig.lua_ls.setup {}
 lspconfig.hls.setup {}
 lspconfig.clangd.setup {}
 lspconfig.slint_lsp.setup {
@@ -40,3 +40,13 @@ lspconfig.slint_lsp.setup {
         }
     }
 }
+lspconfig.html.setup {}
+lspconfig.tsserver.setup {}
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        lsp_name = client.name
+        require("lualine").refresh()
+    end
+})

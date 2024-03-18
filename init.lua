@@ -1,8 +1,6 @@
 require("2C0BB/set")
 require("2C0BB/remap")
 
-vim.api.nvim_create_user_command("EditConfig", "tabedit ~\\AppData\\Local\\nvim\\init.lua", {})
-
 -- disables comments continuing on newlines.
 -- from https://superuser.com/questions/271023/can-i-disable-continuation-of-comments-to-the-next-line-in-vim
 vim.cmd("autocmd FileType * set formatoptions-=cro")
