@@ -1,7 +1,7 @@
 return {
 	-- THEMES
-    {"sainnhe/gruvbox-material", name = "gruvbox-material", lazy = false, priority = 1000},
-	--{"morhetz/gruvbox", lazy = false, priority = 1000},
+	{"morhetz/gruvbox", lazy = false, priority = 1000},
+	{"sainnhe/gruvbox-material", lazy = false, priority = 1000},
 	--{"folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {}, },
 	--{"rose-pine/neovim", name = "rose-pine"},
 	--{"rebelot/kanagawa.nvim", name = "kanagawa"},

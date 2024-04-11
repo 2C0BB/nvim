@@ -47,16 +47,6 @@ lspconfig.slint_lsp.setup {
 lspconfig.html.setup {}
 lspconfig.tsserver.setup {}
 
---[[
-vim.api.nvim_create_autocmd({"LspProgress"}, {
-    callback = function()
-        print("lsp progress")
-    end,
-})
---]]
-
-
-
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
