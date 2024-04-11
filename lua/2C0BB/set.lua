@@ -13,4 +13,5 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.wo.relativenumber = true
+vim.wo.number = true
 

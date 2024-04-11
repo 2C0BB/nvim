@@ -25,6 +25,10 @@ lspconfig.rust_analyzer.setup {
         ["rust-analyzer"] = {
             diagnostics = {
                 disabled = {"needless_return"}
+            },
+            checkOnSave = {
+                enable = true,
+                command = "clippy"
             }
         }
     }
