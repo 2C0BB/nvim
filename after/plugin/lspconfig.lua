@@ -45,7 +45,37 @@ lspconfig.slint_lsp.setup {
     }
 }
 lspconfig.html.setup {}
-lspconfig.tsserver.setup {}
+
+lspconfig.volar.setup {}
+lspconfig.tsserver.setup {
+  init_options = {
+    plugins = {
+      {
+        name = "@vue/typescript-plugin",
+        location = "%userprofile%/AppData/Roaming/npm/node_modules/@vue/typescript-plugin",
+        languages = {"javascript", "typescript", "vue"},
+      },
+    },
+  },
+  filetypes = {
+    "javascript",
+    "typescript",
+    "vue",
+  },
+}
+
+
+--[[
+lspconfig.volar.setup {
+    --filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+    init_options = {
+      vue = {
+        hybridMode = false,
+        checkOnSave = true,
+      },
+    },
+}
+--]]
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)

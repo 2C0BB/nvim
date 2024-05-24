@@ -1,6 +1,7 @@
 return {
 	-- THEMES
 	{"morhetz/gruvbox", lazy = false, priority = 1000},
+    { "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },
 	{"sainnhe/gruvbox-material", lazy = false, priority = 1000},
 	--{"folke/tokyonight.nvim", lazy = false, priority = 1000, opts = {}, },
 	--{"rose-pine/neovim", name = "rose-pine"},

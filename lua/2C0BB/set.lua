@@ -1,5 +1,5 @@
 --https://github.com/neovim/neovim/issues/19648
---vim.cmd("set shell=nu")
+vim.cmd("set shell=nu")
 --vim.cmd("set shellcmdflag=-c")
 --vim.cmd("set shellquote")
 --vim.cmd("set shellxquote")
