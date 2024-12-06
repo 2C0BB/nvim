@@ -38,12 +38,12 @@ cmp.setup({
 
     }),
     sources = cmp.config.sources({
-        { name = "nvim_lsp" },
+        { name = "nvim_lsp"},
         { name = "nvim_lua" },
         { name = "luasnip" }, -- For luasnip users.
         -- { name = "orgmode" },
     }, {
-        { name = "buffer" },
+        --{ name = "buffer" }, to remove text entries
         { name = "path" },
     }),
 })
