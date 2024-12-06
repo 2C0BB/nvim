@@ -1,3 +1,4 @@
+--[[
 require("nvim-treesitter.configs").setup {
     auto_install = true,
     highlight = {
@@ -7,3 +8,4 @@ require("nvim-treesitter.configs").setup {
         enable = false,
     }
 }
+--]]

@@ -20,6 +20,7 @@ lspconfig.pyright.setup {
     }
 }
 
+
 lspconfig.rust_analyzer.setup {
     on_attach = function (client, bufnr)
         vim.lsp.inlay_hint.enable(true, {bufnr})
@@ -50,6 +51,7 @@ lspconfig.slint_lsp.setup {
 lspconfig.html.setup {}
 
 lspconfig.volar.setup {}
+--[[
 lspconfig.tsserver.setup {
   init_options = {
     plugins = {
@@ -66,6 +68,7 @@ lspconfig.tsserver.setup {
     "vue",
   },
 }
+--]]
 
 
 --[[
